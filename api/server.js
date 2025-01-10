@@ -23,10 +23,10 @@ app.use(session({ secret: process.env.TOKEN_KEY,
     cookie: { secure: true }
 }));
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cookieParser());
-app.use(morgan('dev'));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(cookieParser());
+app.use(morgan('dev'));
 app.use(cors());
 app.use(helmet({
     strictTransportSecurity: true,
