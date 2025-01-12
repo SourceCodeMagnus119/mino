@@ -4,6 +4,7 @@
  */
 require('dotenv').config();
 const cors = require('cors');
+const path = require('path');
 const morgan =require('morgan');
 const helmet = require('helmet');
 const express = require('express');
@@ -14,17 +15,19 @@ const session = require('express-session');
 // const Databse =  require('./db/database');
 const cookieParser = require('cookie-parser');
 const rateLimit = require('express-rate-limit');
-const  { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion } = require('mongodb');
 
 const app = express();
 
 app.use(session({ secret: process.env.TOKEN_KEY, 
-    resave: false, saveUninitialized: true, 
-    cookie: { secure: true }
+    resave: true, saveUninitialized: true, 
+    cookie: { secure: true, maxAge: 60000 }
 }));
+app.use(express.static(path.join(__dirname, 'client')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(express.json());
 app.use(cookieParser());
 app.use(morgan('dev'));
 app.use(cors());
@@ -86,6 +89,9 @@ app.get('/', accessSession);
 /**
  * @param Error Handler.
  */
+const e = require("./EH/errorHandler");
+
+app.use(e);
 
 const port = process.env.PORT;
 const time = new Date();
