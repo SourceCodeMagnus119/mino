@@ -64,6 +64,9 @@ app.use('/home', (req, res) => {
 /**
  * @param API Endpoints.
  */
+const video = require("./routes/video");
+
+app.use('/', video);
 
 /**
  * @param Rate Limiter.
