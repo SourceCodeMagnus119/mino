@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const User = require("./user");
 const Schema = mongoose.Schema;
 
 const videoSchema = new Schema({
@@ -30,7 +31,8 @@ const videoSchema = new Schema({
       },
     },
     creator: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
       required: true,
     },
     subscribe: {

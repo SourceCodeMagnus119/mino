@@ -1,3 +1,4 @@
+require("dotenv").config();
 /**
  * @param Session Managemnt.
  */
@@ -18,6 +19,26 @@ const accessSession = async(req, res, next) => {
         .json({ message: `Internal Server Error` });
         console.log(err);
     }
-}
+};
 
-module.exports =  accessSession;
+const verif = async(req, res, next) => {
+    const token = req.session.token;
+
+    if (!token) {
+        return res
+        .status(403)
+        .json({ message: "Unauthorized. No token provided." });
+    }
+
+    try {
+        const decoded = jwt.verify(token, process.env.TOKEN_KEY);
+        req.user = decoded.username;
+        next();
+    } catch (err) {
+        return res
+        .status(401)
+        .json({ message: "Invalid or expired token" });
+    };
+};
+
+module.exports = { accessSession, verif };

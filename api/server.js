@@ -66,7 +66,7 @@ app.use('/home', (req, res) => {
  */
 const video = require("./routes/video");
 
-app.use('/', video);
+app.use('/api/', video);
 
 /**
  * @param Rate Limiter.
@@ -85,9 +85,10 @@ app.use(limiter);
 /**
  * @param Server Session implementationn.
  */
-const accessSession = require('./middleware/session');
+const { accessSession, verif } = require('./middleware/session');
 
 app.get('/', accessSession);
+app.get('/p', verif);
 
 /**
  * @param Error Handler.
