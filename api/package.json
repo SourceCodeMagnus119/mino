@@ -17,7 +17,7 @@
     "Real-time"
   ],
   "author": "PAUL JH GOWASEB <SourceCodeMagnus119>",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "type": "commonjs",
   "description": "Mino is a real-time high-4kuality streaming platform that allows user to ",
   "dependencies": {
