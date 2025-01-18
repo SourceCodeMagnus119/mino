@@ -30,6 +30,12 @@ const videoSchema = new Schema({
         fullscreen: { type: Boolean, default: false },
       },
     },
+    title: {
+      type: String,
+      required: true,
+      minLength: 2,
+      maxLength: 266,
+    },
     creator: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
